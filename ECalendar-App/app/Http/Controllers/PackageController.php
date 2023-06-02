@@ -3,19 +3,19 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Response;
-use App\Models\Customer;
-use Illuminate\Http\Request;
+use App\Models\Package;
 use Illuminate\View\View;
+use Illuminate\Http\Request;
 
-class CustomerController extends Controller
+class PackageController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index():View
     {
-        $customers = Customer::all();
-        return view ('customers.index')->with('customers',$customers);
+        $packages = Package::all();
+        return view ('packages.index')->with('packages',$packages);
     }
 
     /**
@@ -23,8 +23,9 @@ class CustomerController extends Controller
      */
     public function create():View
     {
-        return view('customers.create');
+        return view('packages.create');
     }
+    
 
     /**
      * Store a newly created resource in storage.
@@ -32,8 +33,8 @@ class CustomerController extends Controller
     public function store(Request $request):RedirectResponse
     {
         $input = $request->all();
-        Customer::create($input);
-        return redirect('customer')->with('flash_message', 'New customer inserted');
+        Package::create($input);
+        return redirect('package')->with('flash_message', 'New Package Addedd!');
     }
 
     /**
@@ -41,8 +42,8 @@ class CustomerController extends Controller
      */
     public function show(string $id):View
     {
-        $customer = Customer::find($id);
-        return view('customers.show')->with('customers',$customer);
+        $package = Package::find($id);
+        return view('packages.show')->with('packages', $package);
     }
 
     /**
@@ -50,8 +51,8 @@ class CustomerController extends Controller
      */
     public function edit(string $id):View
     {
-        $customer = Customer::find($id);
-        return view('customers.edit')->with('customers', $customer);
+        $package = Package::find($id);
+        return view('packages.edit')->with('packages', $package);
     }
 
     /**
@@ -59,10 +60,10 @@ class CustomerController extends Controller
      */
     public function update(Request $request, string $id):RedirectResponse
     {
-        $customer = Customer::find($id);
+        $package = Package::find($id);
         $input = $request->all();
-        $customer->update($input);
-        return redirect('customer')->with('flash_message','Customer Details Updated.');
+        $package->update($input);
+        return redirect('package')->with('flash_message', 'Package Details Updated!');
     }
 
     /**
@@ -70,7 +71,7 @@ class CustomerController extends Controller
      */
     public function destroy(string $id):RedirectResponse
     {
-        Customer::destroy($id);
-        return redirect('customer')->with('flash_message', 'Customer Data Deleted.');
+        Package::destroy($id);
+        return redirect('package')->with('flash_message', 'Package Data Deleted.');
     }
 }
